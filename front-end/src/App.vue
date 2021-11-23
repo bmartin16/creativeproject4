@@ -32,7 +32,7 @@
         </a>
 
         <ul class="nav col-md-4 justify-content-end">
-          <li class="nav-item"><a href="https://github.com/bmartin16/creativeproject3.git" class="nav-link px-2 text-muted">Github</a></li>
+          <li class="nav-item"><a href="https://github.com/bmartin16/creativeproject4.git" class="nav-link px-2 text-muted">Github</a></li>
         </ul>
       </footer>
     </div>
