@@ -1,75 +1,110 @@
 <template>
 <div id="app">
-  <div class="header">
-    <router-link to="/">
-      <div class="logo">
-        <img src="/ordinary.png">
-      </div>
-    </router-link>
-    <div class="title">
-      <h1>Museum of Ordinary Objects</h1>
+  <div id="menu">
+    <div id="brand">
+      <router-link to="/">
+        <h1>Funny Fashion</h1>
+      </router-link>
+    </div>
+    <div id="side">
+      <router-link to="/makeYourOwn">
+        <div class="menu-item browse">
+          <img src="/images/shirt.png">
+          <p>Make Your Own</p>
+        </div>
+      </router-link>
+      <router-link to="/cart">
+        <div class="menu-item">
+          <img src="/images/cart.png">
+          <p>{{ numberOfItems }} items</p>
+        </div>
+      </router-link>
     </div>
   </div>
-  <div class="content">
-    <router-view />
+    <router-view/>
+
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <p class="col-md-4 mb-0 text-muted">&copy; 2021 Funny Fashion, Inc</p>
+
+        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <router-link to="/admin">Admin</router-link>
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item"><a href="https://github.com/bmartin16/creativeproject3.git" class="nav-link px-2 text-muted">Github</a></li>
+        </ul>
+      </footer>
+    </div>
   </div>
-  <div class="footer">
-    <router-link to="/admin">Admin</router-link>
-  </div>
-</div>
 </template>
 
+<script>
+export default {
+  computed: {
+    numberOfItems() {
+      return this.$root.$data.cart.length;
+    }
+  },
+}
+</script>
+
 <style>
-html {
+* {
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  background: #fff;
-  padding: 0px;
+  margin: 50px 100px;
+
+}
+
+#menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 5px;
+  grid-template-areas: "none brand side";
+  margin-bottom: 50px;
+}
+
+#menu a {
+  color: #1EA1A1;
+  text-decoration: none;
+}
+
+#brand {
+  grid-area: brand;
+  display: flex;
+  justify-content: center;
+}
+
+#brand img {
+  height: 100px;
+}
+
+#side {
+  grid-area: side;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#side img {
+  width: 50px;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  margin-right: 50px;
+}
+
+.menu-item p {
   margin: 0px;
 }
 
-/* Header */
-.header {
-  display: flex;
-  padding: 10px 100px 0px 100px;
-  background-color: #5BDEFF;
-  color: #1C454F;
-}
-
-.title {
+.browse {
+  margin-right: 50px;
   margin-top: 5px;
-}
-
-.title h1 {
-  font-size: 30px;
-}
-
-.content {
-  padding: 20px 100px;
-  min-height: 500px;
-}
-
-/* Footer */
-.footer {
-  height: 50px;
-  padding: 20px 100px 0px 100px;
-  background: #e3e3e3;
-  font-size: 12px;
-}
-
-.footer a {
-  color: #000;
-}
-
-h1 {
-  font-size: 20px;
-}
-
-h2 {
-  font-size: 14px;
+  align-items: center;
 }
 </style>

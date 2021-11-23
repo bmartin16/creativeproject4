@@ -3,14 +3,15 @@
   <h1>The Admin Page!</h1>
    <div class="heading">
      <div class="circle">1</div>
-     <h2>Add an Item</h2>
+     <h2>Add a Shirt</h2>
    </div>
    <div class="add">
      <div class="form">
        <input v-model="title" placeholder="Title">
        <p></p>
-       <textarea v-model="description" placeholder="Description">
-       </textarea>
+       <input v-model="price" placeholder="Price">
+       <p></p>
+       <input v-model="country" placeholder="Country">
        <p></p>
        <input type="file" name="photo" @change="fileChanged">
        <button @click="upload">Upload</button>
@@ -22,7 +23,7 @@
    </div>
    <div class="heading">
       <div class="circle">2</div>
-      <h2>Edit/Delete an Item</h2>
+      <h2>Edit/Delete a Shirt</h2>
     </div>
     <div class="edit">
       <div class="form">
@@ -35,9 +36,10 @@
       <div class="upload" v-if="findItem">
         <input v-model="findItem.title">
         <p></p>
-	<textarea v-model="findItem.description">
-	</textarea>
-	<p></p>
+        <input v-model="findItem.price">
+        <p></p>
+        <input v-model="findItem.country">
+        <p></p>
         <img :src="findItem.path" />
       </div>
       <div class="actions" v-if="findItem">
@@ -57,6 +59,8 @@ export default {
       title: "",
       file: null,
       description: "",
+      price: "",
+      country: "",
       addItem: null,
       items: [],
       findTitle: "",
@@ -84,7 +88,11 @@ export default {
         let r2 = await axios.post('/api/items', {
           title: this.title,
           description: this.description,
-          path: r1.data.path
+          price: this.price,
+          country: this.country,
+          path: r1.data.path,
+          num: this.items.length+1,
+
         });
         this.addItem = r2.data;
       } catch (error) {
@@ -94,8 +102,8 @@ export default {
     async getItems() {
       try {
         let response = await axios.get("/api/items");
-	this.items = response.data;
-	return true;
+        this.items = response.data;
+        return true;
       }
       catch (error) {
         console.log(error);
@@ -156,12 +164,13 @@ export default {
 
 .circle {
   border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  padding: 8px;
+  width: 30px;
+  height: 30px;
+  margin: 15px;
+  padding: 3px;
   background: #333;
   color: #fff;
-  text-align: center
+  text-align: center;
 }
 
 /* Form */
@@ -175,6 +184,7 @@ button {
 
 .form {
   margin-right: 50px;
+  padding-left: 30px;
 }
 
 /* Uploaded images */
@@ -198,5 +208,11 @@ button {
 .suggestion:hover {
   background-color: #5BDEFF;
   color: #fff;
+}
+
+h1 {
+  font-size: 32px;
+  padding-left: 20px;
+
 }
 </style>

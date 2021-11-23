@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 const mongoose = require('mongoose');
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/museum', {
+mongoose.connect('mongodb://localhost:27017/funnyfashion', {
   useNewUrlParser: true
 });
 
@@ -31,10 +31,13 @@ const itemSchema = new mongoose.Schema({
   title: String,
   path: String,
   description: String,
+  price: String,
+  country: String,
+  num: Number,
 });
 
 // Create a model for items in the museum.
-const Item = mongoose.model('Item', itemSchema);
+const Item = mongoose.model('item', itemSchema);
 
 // Upload a photo. Uses the multer middleware for the upload and then returns
 // the path where the photo is stored in the file system.
@@ -55,6 +58,9 @@ app.post('/api/items', async (req, res) => {
     title: req.body.title,
     path: req.body.path,
     description: req.body.description,
+    price: req.body.price,
+    country: req.body.country,
+    num: req.body.num,
   });
   try {
     await item.save();
@@ -95,10 +101,11 @@ app.put('/api/items/:id', async (req, res) => {
     });
     item.title = req.body.title;
     item.description = req.body.description;
+    item.price = req.body.price;
+    item.country = req.body.country;
     item.save();
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
   }
 });
-
